@@ -8,6 +8,36 @@
 "                                                                              "
 "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
 
+
+"=====================================================
+"" Jaugusto97 Personal Config 
+"=====================================================
+
+nmap <silent>gd <Plug>(coc-definition)
+nmap <silent>gr <Plug>(coc-references)
+" Use K to show documentation in preview window.
+nnoremap <silent>K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+inoremap <silent><expr> <c-space> coc#refresh()
+:set number relativenumber
+set colorcolumn=100
+let mapleader=" "
+map <leader>nn :NERDTreeToggle<cr>
+map <leader>nb :NERDTreeFromBookmark<Space>
+map <leader>nf :NERDTreeFind<cr>
+map <leader>tn :tab new<cr>
+map <leader>tc :tab close<cr>
+let g:Tlist_Ctags_Cmd='/usr/local/Cellar/ctags/5.8_1/bin/ctags'
+let g:python3_host_prog = "/Users/joao/.pyenv/shims/python"
+
+
 let $vimhome=fnamemodify(resolve(expand("~/.vimrc")), ':p:h')
 let $vundle=$vimhome."/bundle/Vundle.vim"
 
@@ -36,6 +66,7 @@ call vundle#begin()
     Plugin 'rosenfeld/conque-term'              " Consoles as buffers
     Plugin 'tpope/vim-surround'                 " Parentheses, brackets, quotes, XML tags, and more
     Plugin 'flazz/vim-colorschemes'             " Colorschemes
+    Plugin 'preservim/nerdcommenter'            " Easy comment/uncomment
 
     "-------------------=== Snippets support ===--------------------
     Plugin 'garbas/vim-snipmate'                " Snippets manager
@@ -47,7 +78,7 @@ call vundle#begin()
     Plugin 'tpope/vim-commentary'               " Comment stuff out
     Plugin 'mitsuhiko/vim-sparkup'              " Sparkup(XML/jinja/htlm-django/etc.) support
     Plugin 'Rykka/riv.vim'                      " ReStructuredText plugin
-    Plugin 'Valloric/YouCompleteMe'             " Autocomplete plugin
+    Plugin 'neoclide/coc.nvim'             " Autocomplete plugin
 
     "-------------------=== Python  ===-----------------------------
     Plugin 'klen/python-mode'                   " Python mode (docs, refactor, lints...)
@@ -151,8 +182,8 @@ let g:riv_disable_folding=1
 "=====================================================
 
 " python executables for different plugins
-let g:pymode_python='python'
-let g:syntastic_python_python_exec='python'
+let g:pymode_python='python3'
+let g:syntastic_python_python_exec='python3'
 
 " rope
 let g:pymode_rope=0
@@ -227,13 +258,8 @@ let g:syntastic_error_symbol='X'
 let g:syntastic_style_error_symbol='X'
 let g:syntastic_warning_symbol='x'
 let g:syntastic_style_warning_symbol='x'
-let g:syntastic_python_checkers=['flake8', 'pydocstyle', 'python']
+let g:syntastic_python_checkers=['flake8', 'pydocstyle', 'python3']
 
 " YouCompleteMe
 set completeopt-=preview
 
-let g:ycm_global_ycm_extra_conf='~/.vim/ycm_extra_conf.py'
-let g:ycm_confirm_extra_conf=0
-
-nmap <leader>g :YcmCompleter GoTo<CR>
-nmap <leader>d :YcmCompleter GoToDefinition<CR>
